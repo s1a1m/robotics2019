@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 
 public class Robot {
 
@@ -14,15 +15,22 @@ public class Robot {
     public DcMotor left_front_motor;
     public DcMotor left_back_motor;
 
+//    public DcMotor right_intake;
+//    public DcMotor left_intake;
+//    public DcMotor linearSlide;
+
+    double motorMax = 0.7;
+    double joyScale = 1.0;
+
     public void init(HardwareMap hwm){
         HwMap = hwm;
 
-        right_front_motor = HwMap.dcMotor.get("right_front_motor");
-        right_back_motor = HwMap.dcMotor.get("right_back_motor");
-        left_front_motor = HwMap.dcMotor.get("left_front_motor");
-        left_back_motor = HwMap.dcMotor.get("left_back_motor");
+        right_front_motor = HwMap.dcMotor.get("right_front_motor"); //Hub 2, Port 3
+        right_back_motor = HwMap.dcMotor.get("right_back_motor"); //Hub 2, Port 2
+        left_front_motor = HwMap.dcMotor.get("left_front_motor"); //Hub 2, Port 0
+        left_back_motor = HwMap.dcMotor.get("left_back_motor"); //Hub 2, Port 1
 
-        right_front_motor.setDirection(DcMotorSimple.Direction.REVERSE);
+        left_front_motor.setDirection(DcMotorSimple.Direction.REVERSE);
         right_back_motor.setDirection(DcMotorSimple.Direction.REVERSE);
     }
     public void setDriveMotorsMode(int option) {

@@ -10,6 +10,15 @@ public class RedPickUpZone extends LinearOpMode{
     public void runOpMode(){
         R.init(hardwareMap);
         waitForStart();
+        //Drive forward
+        //Turn right
+        //Sense special block
+        //Grab block
+        //Bring to build plate
+        //Go back
+        //Sense second block
+        //Bring to build plate
+        //Park under bar thing
 
 
     }

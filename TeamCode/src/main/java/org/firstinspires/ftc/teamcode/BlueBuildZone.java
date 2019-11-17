@@ -10,7 +10,9 @@ public class BlueBuildZone extends LinearOpMode{
     public void runOpMode(){
         R.init(hardwareMap);
         waitForStart();
+        //Drive forward
+        //Pull build plate into depot
 
-
+        //Maybe park under tall bar thingy
     }
 }
