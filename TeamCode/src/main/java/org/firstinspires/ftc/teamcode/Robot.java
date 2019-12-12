@@ -15,9 +15,12 @@ public class Robot {
     public DcMotor left_front_motor;
     public DcMotor left_back_motor;
 
-//    public DcMotor right_intake;
-//    public DcMotor left_intake;
-//    public DcMotor linearSlide;
+    public DcMotor linearSlide;
+    public DcMotor lazySusan;
+
+    public Servo claw;
+    public Servo claw2;
+    public Servo blockClaw;
 
     double motorMax = 0.7;
     double joyScale = 1.0;
@@ -30,9 +33,17 @@ public class Robot {
         left_front_motor = HwMap.dcMotor.get("left_front_motor"); //Hub 2, Port 0
         left_back_motor = HwMap.dcMotor.get("left_back_motor"); //Hub 2, Port 1
 
+        linearSlide = HwMap.dcMotor.get("linearSlide");
+        lazySusan = HwMap.dcMotor.get("lazySusan");
+
+        claw = HwMap.servo.get("claw");
+        claw2 = HwMap.servo.get("claw2");
+        blockClaw = HwMap.servo.get("blockClaw");
+
         left_front_motor.setDirection(DcMotorSimple.Direction.REVERSE);
         right_back_motor.setDirection(DcMotorSimple.Direction.REVERSE);
     }
+
     public void setDriveMotorsMode(int option) {
         switch(option) {
             case 1:
@@ -63,6 +74,7 @@ public class Robot {
                 System.out.println("Error: Invalid argument!");
         }
     }
+
     public void driveStraight(int encoderTicks, double power) {
         this.setDriveMotorsMode(4); // STOP_AND_RESET_ENCODER
         this.setDriveMotorsMode(1); // RUN_TO_POSITION
@@ -77,11 +89,13 @@ public class Robot {
         this.left_back_motor.setPower(power);
         this.right_back_motor.setPower(power);
     }
+
     public void waitFor() {
         while(this.right_front_motor.isBusy()){
             //Waiting
         }
     }
+
     public void turn(String direction, int encoderTicks, double power) {
         this.setDriveMotorsMode(4); // STOP_AND_RESET_ENCODER
         this.setDriveMotorsMode(1); // RUN_TO_POSITION
@@ -108,6 +122,7 @@ public class Robot {
         this.left_back_motor.setPower(power);
         this.right_back_motor.setPower(power);
     }
+
     public void strafe(String direction, int distance, double power) {
         setDriveMotorsMode(1);
         if (direction == "Right") {

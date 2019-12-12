@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 
@@ -15,22 +16,6 @@ public class TeleopMode extends LinearOpMode {
         R.init(hardwareMap);
         waitForStart();
         while(opModeIsActive()){
-
-
-//                R.left_front_motor.setPower(gamepad1.left_stick_y);
-//                R.right_front_motor.setPower(gamepad1.left_stick_y);
-//                R.left_back_motor.setPower(gamepad1.left_stick_y);
-//                R.right_back_motor.setPower(gamepad1.left_stick_y);
-//
-//                R.left_front_motor.setPower(gamepad1.left_stick_x);
-//                R.left_back_motor.setPower(gamepad1.left_stick_x);
-//                R.right_front_motor.setPower(-gamepad1.left_stick_x);
-//                R.right_back_motor.setPower(-gamepad1.left_stick_x);
-//
-//                R.left_front_motor.setPower(-gamepad1.right_stick_x);
-//                R.left_back_motor.setPower(gamepad1.right_stick_x);
-//                R.right_front_motor.setPower(gamepad1.right_stick_x);
-//                R.right_back_motor.setPower(-gamepad1.right_stick_x);
 
             double r = Math.hypot(gamepad1.left_stick_x, gamepad1.left_stick_y);
             double robotAngle = Math.atan2(-gamepad1.left_stick_y, gamepad1.left_stick_x) - Math.PI / 4;
@@ -57,20 +42,36 @@ public class TeleopMode extends LinearOpMode {
                 R.left_back_motor.setPower(v3);
                 R.right_back_motor.setPower(v4);
             }
+            //Claws
+            if(gamepad2.y){
+                R.claw.setPosition(1);
+                R.claw2.setPosition(0);
+            }
+            if(gamepad2.a) {
+                R.claw.setPosition(0);
+                R.claw2.setPosition(1);
+            }
 
-//            // check to see if we need to move the servo.
-//            if(gamepad1.y) {
-//                // move to 0 degrees.
-//                servoTest.setPosition(0);
-//            } else if (gamepad1.x || gamepad1.b) {
-//                // move to 90 degrees.
-//                servoTest.setPosition(0.5);
-//            } else if (gamepad1.a) {
-//                // move to 180 degrees.
-//                servoTest.setPosition(1);
-//            }
+            //Block Claw
+            if(gamepad2.dpad_up){
+                R.blockClaw.setPosition(1);
+            }
+            if(gamepad2.dpad_down){
+                R.blockClaw.setPosition(0);
+            }
 
+            //linear slide
+            R.linearSlide.setPower(gamepad2.left_stick_y);
+
+            R.lazySusan.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            //Lazy Susan
+            if(gamepad2.right_bumper){
+                R.lazySusan.setPower(1);
+            }else if(gamepad2.left_bumper){
+                R.lazySusan.setPower(-1);
+            }else{
+                R.lazySusan.setPower(0);
+            }
         }
-
     }
 }
