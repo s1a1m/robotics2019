@@ -15,14 +15,16 @@ public class Robot {
     public DcMotor left_front_motor;
     public DcMotor left_back_motor;
 
-    public DcMotor linearSlide;
-    public DcMotor lazySusan;
-
+//    public DcMotor linearSlide;
+//    public DcMotor lazySusan;
+//
+//    //public DcMotor linearSlide2;
+//
     public Servo claw;
     public Servo claw2;
-    public Servo blockClaw;
+//    public Servo blockClaw;
 
-    double motorMax = 0.7;
+    double motorMax = 1.0;
     double joyScale = 1.0;
 
     public void init(HardwareMap hwm){
@@ -33,15 +35,32 @@ public class Robot {
         left_front_motor = HwMap.dcMotor.get("left_front_motor"); //Hub 2, Port 0
         left_back_motor = HwMap.dcMotor.get("left_back_motor"); //Hub 2, Port 1
 
-        linearSlide = HwMap.dcMotor.get("linearSlide");
-        lazySusan = HwMap.dcMotor.get("lazySusan");
-
+//        linearSlide = HwMap.dcMotor.get("linearSlide");
+//        lazySusan = HwMap.dcMotor.get("lazySusan");
+//
+//        //linearSlide2 = HwMap.dcMotor.get("linearSlide2");
+//
         claw = HwMap.servo.get("claw");
         claw2 = HwMap.servo.get("claw2");
-        blockClaw = HwMap.servo.get("blockClaw");
+//        blockClaw = HwMap.servo.get("blockClaw");
 
-        left_front_motor.setDirection(DcMotorSimple.Direction.REVERSE);
         right_back_motor.setDirection(DcMotorSimple.Direction.REVERSE);
+        right_front_motor.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        //left_back_motor.setDirection(DcMotorSimple.Direction.REVERSE);
+        //left_front_motor.setDirection(DcMotorSimple.Direction.REVERSE);
+
+
+//        linearSlide.setDirection(DcMotorSimple.Direction.REVERSE);
+    }
+
+    public boolean driveMotorsBusy() {
+        if( this.left_front_motor.getPower() + this.right_front_motor.getPower() + this.left_back_motor.getPower() + this.right_back_motor.getPower() != 0.0){
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     public void setDriveMotorsMode(int option) {
@@ -77,12 +96,13 @@ public class Robot {
 
     public void driveStraight(int encoderTicks, double power) {
         this.setDriveMotorsMode(4); // STOP_AND_RESET_ENCODER
-        this.setDriveMotorsMode(1); // RUN_TO_POSITION
-        // Sets target position
+
         this.left_front_motor.setTargetPosition(encoderTicks);
         this.right_front_motor.setTargetPosition(encoderTicks);
         this.left_back_motor.setTargetPosition(encoderTicks);
         this.right_back_motor.setTargetPosition(encoderTicks);
+        //Sets target Position
+        this.setDriveMotorsMode(1); // RUN_TO_POSITION
         // Sets power
         this.left_front_motor.setPower(power);
         this.right_front_motor.setPower(power);
@@ -124,12 +144,16 @@ public class Robot {
     }
 
     public void strafe(String direction, int distance, double power) {
-        setDriveMotorsMode(1);
         if (direction == "Right") {
             this.left_back_motor.setTargetPosition(this.left_back_motor.getCurrentPosition() - distance);
             this.left_front_motor.setTargetPosition(this.left_front_motor.getCurrentPosition() + distance);
             this.right_back_motor.setTargetPosition(this.right_back_motor.getCurrentPosition() + distance);
             this.right_front_motor.setTargetPosition(this.right_front_motor.getCurrentPosition() - distance);
+
+            this.left_front_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            this.right_front_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            this.left_back_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            this.right_back_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
             this.left_back_motor.setPower(power);
             this.left_front_motor.setPower(power);
@@ -141,6 +165,11 @@ public class Robot {
             this.left_front_motor.setTargetPosition(this.left_front_motor.getCurrentPosition() - distance);
             this.right_back_motor.setTargetPosition(this.right_back_motor.getCurrentPosition() - distance);
             this.right_front_motor.setTargetPosition(this.right_front_motor.getCurrentPosition() + distance);
+
+            this.left_front_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            this.right_front_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            this.left_back_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            this.right_back_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
             this.left_back_motor.setPower(power);
             this.left_front_motor.setPower(power);
