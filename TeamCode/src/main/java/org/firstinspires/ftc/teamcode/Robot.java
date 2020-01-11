@@ -15,17 +15,11 @@ public class Robot {
     public DcMotor left_front_motor;
     public DcMotor left_back_motor;
 
-//    public DcMotor linearSlide;
-//    public DcMotor lazySusan;
-//
-//    //public DcMotor linearSlide2;
-//
+    public DcMotor linearSlide;
+    public DcMotor linearSlide2;
+
     public Servo claw;
     public Servo claw2;
-//    public Servo blockClaw;
-
-    double motorMax = 1.0;
-    double joyScale = 1.0;
 
     public void init(HardwareMap hwm){
         HwMap = hwm;
@@ -35,25 +29,20 @@ public class Robot {
         left_front_motor = HwMap.dcMotor.get("left_front_motor"); //Hub 2, Port 0
         left_back_motor = HwMap.dcMotor.get("left_back_motor"); //Hub 2, Port 1
 
-//        linearSlide = HwMap.dcMotor.get("linearSlide");
-//        lazySusan = HwMap.dcMotor.get("lazySusan");
-//
-//        //linearSlide2 = HwMap.dcMotor.get("linearSlide2");
-//
+        linearSlide = HwMap.dcMotor.get("linearSlide");
+        linearSlide2 = HwMap.dcMotor.get("linearSlide2");
+
         claw = HwMap.servo.get("claw");
         claw2 = HwMap.servo.get("claw2");
-//        blockClaw = HwMap.servo.get("blockClaw");
 
         right_back_motor.setDirection(DcMotorSimple.Direction.REVERSE);
         right_front_motor.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        //left_back_motor.setDirection(DcMotorSimple.Direction.REVERSE);
-        //left_front_motor.setDirection(DcMotorSimple.Direction.REVERSE);
+        this.setDriveMotorsMode(4); // RESET
+        this.setDriveMotorsMode(2); // RUN USING ENCODER
 
-
-//        linearSlide.setDirection(DcMotorSimple.Direction.REVERSE);
     }
-
+  
     public boolean driveMotorsBusy() {
         if( this.left_front_motor.getPower() + this.right_front_motor.getPower() + this.left_back_motor.getPower() + this.right_back_motor.getPower() != 0.0){
             return true;
@@ -95,14 +84,22 @@ public class Robot {
     }
 
     public void driveStraight(int encoderTicks, double power) {
-        this.setDriveMotorsMode(4); // STOP_AND_RESET_ENCODER
+//        this.setDriveMotorsMode(4); // STOP_AND_RESET_ENCODER
+        this.left_front_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        this.right_front_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        this.left_back_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        this.right_back_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         this.left_front_motor.setTargetPosition(encoderTicks);
         this.right_front_motor.setTargetPosition(encoderTicks);
         this.left_back_motor.setTargetPosition(encoderTicks);
         this.right_back_motor.setTargetPosition(encoderTicks);
         //Sets target Position
-        this.setDriveMotorsMode(1); // RUN_TO_POSITION
+//        this.setDriveMotorsMode(1); // RUN_TO_POSITION
+        this.left_front_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        this.right_front_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        this.left_back_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        this.right_back_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         // Sets power
         this.left_front_motor.setPower(power);
         this.right_front_motor.setPower(power);
@@ -111,9 +108,26 @@ public class Robot {
     }
 
     public void waitFor() {
-        while(this.right_front_motor.isBusy()){
+        while(this.right_front_motor.isBusy() ){
             //Waiting
         }
+    }
+    public void waitLinearSlide() {
+        while(this.linearSlide.isBusy() ){
+            //Waiting
+        }
+    }
+
+    public void raiseLifter(int distance, double power){
+        this.linearSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        this.linearSlide2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        this.linearSlide.setTargetPosition(distance);
+//        this.linearSlide2.setTargetPosition(distance);
+        this.linearSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//        this.linearSlide2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        this.linearSlide.setPower(power);
+//        this.linearSlide2.setPower(power);
+
     }
 
     public void turn(String direction, int encoderTicks, double power) {

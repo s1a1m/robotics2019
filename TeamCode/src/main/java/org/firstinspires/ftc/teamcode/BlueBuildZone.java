@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 @Autonomous(name = "BlueBuildZone", group = "Autonomous")
 public class BlueBuildZone extends LinearOpMode{
@@ -11,30 +12,29 @@ public class BlueBuildZone extends LinearOpMode{
         R.init(hardwareMap);
         waitForStart();
 
-        R.driveStraight(1000, 0.5);
+        R.driveStraight(400, .7);
         R.waitFor();
-//        R.claw.setPosition(1);
-//        R.claw2.setPosition(0);
-//
-//        R.strafe("Left", 1600, .3);
-//        R.waitFor();
-//
-//        R.driveStraight(3000, .7);
-//        R.waitFor();
-//
-//        sleep(1000);
-//
-//        R.claw.setPosition(0);
-//        R.claw2.setPosition(1);
-//
-//        sleep(2500);
-//
-//        R.driveStraight(-3200, .3);
-//        R.waitFor();
-//
-//        R.claw.setPosition(1);
-//        R.claw2.setPosition(0);
-//
-//        sleep(1000);
+
+        R.raiseLifter(-200, .7);
+        R.waitLinearSlide();
+
+        R.turn("CCW", 300, .7);
+        R.waitFor();
+
+        R.driveStraight(2400, .7);
+        R.waitFor();
+
+        R.turn("CW", 300, .7);
+        R.waitFor();
+
+        R.driveStraight(400, .7);
+        R.waitFor();
+
+        R.raiseLifter(300, .7);
+        R.waitLinearSlide();
+
+        R.driveStraight(-3500, .3);
+        R.waitFor();
+
     }
 }
