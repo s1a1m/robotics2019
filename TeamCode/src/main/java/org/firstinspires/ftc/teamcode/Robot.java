@@ -5,6 +5,11 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
+
+import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
+
 public class Robot {
 
     public HardwareMap HwMap;
@@ -42,7 +47,33 @@ public class Robot {
         this.setDriveMotorsMode(2); // RUN USING ENCODER
 
     }
-  
+
+    public void initVuforia() {
+
+        final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = BACK;
+        final boolean PHONE_IS_PORTRAIT = false;
+
+        final String VUFORIA_KEY = "AW/D0F3/////AAABmT6CO76ZukEWtNAvh1kty819QDEF9SG9ZxbfUcbjoxBCe0UcoTGK19TZdmHtWDwxhrL4idOt1tdJE+h9YGDtZ7U/njHEqSZ7jflzurT4j/WXTCjeTCSf0oMqcgduLTDNz+XEXMbPSlnHbO9ZnEZBun7HHr6N06kpYu6QZmG6WRvibuKCe5IeZJ21RoIeCsdp3ho/f/+QQLlnqaa1dw6i4xMFM0e2IaxujhQiWnd4by23CkMPvzKhy6YP3wPBq+awpzEPLDZcD8l1i0SqmX7HNpmw4kXBrWzEimAzp1aqONVau4kIwCGwJFusMdErw9IL7KQ5VqMKN4Xl67s0pwotoXsA+5SlWQAIodipYKZnPzwO";
+
+        // Since ImageTarget trackables use mm to specifiy their dimensions, we must use mm for all the physical dimension.
+        // We will define some constants and conversions here
+        final float mmPerInch        = 25.4f;
+        final float mmTargetHeight   = (6) * mmPerInch; // the height of the center of the target image above the floor
+
+        // Constant for Stone Target
+        final float stoneZ = 2.00f * mmPerInch;
+
+        // Class Members
+        OpenGLMatrix lastLocation = null;
+        VuforiaLocalizer vuforia = null;
+        boolean targetVisible = false;
+        float phoneXRotate    = 0;
+        float phoneYRotate    = 0;
+        float phoneZRotate    = 0;
+
+
+    }
+
     public boolean driveMotorsBusy() {
         if( this.left_front_motor.getPower() + this.right_front_motor.getPower() + this.left_back_motor.getPower() + this.right_back_motor.getPower() != 0.0){
             return true;

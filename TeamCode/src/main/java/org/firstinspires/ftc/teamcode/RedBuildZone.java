@@ -14,22 +14,28 @@ public class RedBuildZone extends LinearOpMode{
         R.driveStraight(200, .7);
         R.waitFor();
 
-        R.raiseLifter(-200, .7);
+        R.driveStraight(400, .7);
+        R.waitFor();
+
+        R.raiseLifter(-400, .7);
         R.waitLinearSlide();
 
-        R.strafe("Right", 1200, 0.5);
+        R.turn("CW", 400, .7);
         R.waitFor();
 
-        R.turn("CCW", 400, .7);
+        R.driveStraight(2400, .7);
         R.waitFor();
 
-        R.driveStraight(3000, .7);
+        R.turn("CCW", 440, .7);
         R.waitFor();
 
-        R.raiseLifter(300, .7);
+        R.driveStraight(500, .7);
+        R.waitFor();
+
+        R.raiseLifter(400, .7);
         R.waitLinearSlide();
 
-        R.driveStraight(-3500, .3);
+        R.driveStraight(-3300, .3);
         R.waitFor();
     }
 }
