@@ -78,6 +78,7 @@ public class ConceptVuforiaSkyStoneNavigation extends LinearOpMode {
 
             // Provide feedback as to where the robot is located (if we know).
             if (targetVisible) {
+                telemetry.addData("It is visible n3rd", targetVisible);
 //                // express position (translation) of robot in inches.
 //                VectorF translation = lastLocation.getTranslation();
 //                telemetry.addData("Pos (in)", "{X, Y, Z} = %.1f, %.1f, %.1f",

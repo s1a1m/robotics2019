@@ -56,8 +56,14 @@ public class TeleopMode extends LinearOpMode {
                 R.claw2.setPosition(0);
             }
             if(gamepad2.a) {
-                R.claw.setPosition(.4);
-                R.claw2.setPosition(.6);
+                R.claw.setPosition(.5);
+                R.claw2.setPosition(.5);
+            }
+            if(gamepad2.b){
+                R.skystoneClaw.setPosition(.55);
+            }
+            if(gamepad2.x){
+                R.skystoneClaw.setPosition(0);
             }
 
             //Linear Slide

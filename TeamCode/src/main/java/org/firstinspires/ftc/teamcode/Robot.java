@@ -5,8 +5,14 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
 
@@ -25,6 +31,7 @@ public class Robot {
 
     public Servo claw;
     public Servo claw2;
+    public Servo skystoneClaw;
 
     public void init(HardwareMap hwm){
         HwMap = hwm;
@@ -39,6 +46,7 @@ public class Robot {
 
         claw = HwMap.servo.get("claw");
         claw2 = HwMap.servo.get("claw2");
+        skystoneClaw = HwMap.servo.get("skystoneClaw");
 
         right_back_motor.setDirection(DcMotorSimple.Direction.REVERSE);
         right_front_motor.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -51,27 +59,33 @@ public class Robot {
     public void initVuforia() {
 
         final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = BACK;
-        final boolean PHONE_IS_PORTRAIT = false;
 
         final String VUFORIA_KEY = "AW/D0F3/////AAABmT6CO76ZukEWtNAvh1kty819QDEF9SG9ZxbfUcbjoxBCe0UcoTGK19TZdmHtWDwxhrL4idOt1tdJE+h9YGDtZ7U/njHEqSZ7jflzurT4j/WXTCjeTCSf0oMqcgduLTDNz+XEXMbPSlnHbO9ZnEZBun7HHr6N06kpYu6QZmG6WRvibuKCe5IeZJ21RoIeCsdp3ho/f/+QQLlnqaa1dw6i4xMFM0e2IaxujhQiWnd4by23CkMPvzKhy6YP3wPBq+awpzEPLDZcD8l1i0SqmX7HNpmw4kXBrWzEimAzp1aqONVau4kIwCGwJFusMdErw9IL7KQ5VqMKN4Xl67s0pwotoXsA+5SlWQAIodipYKZnPzwO";
 
-        // Since ImageTarget trackables use mm to specifiy their dimensions, we must use mm for all the physical dimension.
-        // We will define some constants and conversions here
-        final float mmPerInch        = 25.4f;
-        final float mmTargetHeight   = (6) * mmPerInch; // the height of the center of the target image above the floor
-
-        // Constant for Stone Target
-        final float stoneZ = 2.00f * mmPerInch;
-
         // Class Members
-        OpenGLMatrix lastLocation = null;
         VuforiaLocalizer vuforia = null;
         boolean targetVisible = false;
-        float phoneXRotate    = 0;
-        float phoneYRotate    = 0;
-        float phoneZRotate    = 0;
+
+        int cameraMonitorViewId = HwMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", HwMap.appContext.getPackageName());
+        VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
+
+        parameters.vuforiaLicenseKey = VUFORIA_KEY;
+        parameters.cameraDirection   = CAMERA_CHOICE;
+
+        //  Instantiate the Vuforia engine
+        vuforia = ClassFactory.getInstance().createVuforia(parameters);
+
+        // Load the data sets for the trackable objects. These particular data
+        // sets are stored in the 'assets' part of our application.
+        VuforiaTrackables targetsSkyStone = vuforia.loadTrackablesFromAsset("Skystone");
+
+        VuforiaTrackable stoneTarget = targetsSkyStone.get(0);
+        stoneTarget.setName("Stone Target");
 
 
+        // For convenience, gather together all the trackable objects in one easily-iterable collection */
+        List<VuforiaTrackable> allTrackables = new ArrayList<VuforiaTrackable>();
+        allTrackables.addAll(targetsSkyStone);
     }
 
     public boolean driveMotorsBusy() {
@@ -221,5 +235,8 @@ public class Robot {
             this.right_back_motor.setPower(power);
             this.right_front_motor.setPower(power);
         }
+
+
     }
+
 }
