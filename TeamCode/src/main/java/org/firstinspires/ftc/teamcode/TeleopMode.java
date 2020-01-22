@@ -42,6 +42,34 @@ public class TeleopMode extends LinearOpMode {
                 R.right_back_motor.setPower(-1);
                 R.right_front_motor.setPower(-1);
             }
+            else if(gamepad1.y){
+                //D-Pad Forward
+                R.left_back_motor.setPower(.4);
+                R.left_front_motor.setPower(.4);
+                R.right_back_motor.setPower(.4);
+                R.right_front_motor.setPower(.4);
+            }
+            else if(gamepad1.a){
+                //D-Pad Backward
+                R.left_back_motor.setPower(-.4);
+                R.left_front_motor.setPower(-.4);
+                R.right_back_motor.setPower(-.4);
+                R.right_front_motor.setPower(-.4);
+            }
+            else if(gamepad1.b){
+                //D-Pad Forward
+                R.left_back_motor.setPower(.4);
+                R.left_front_motor.setPower(.4);
+                R.right_back_motor.setPower(-.4);
+                R.right_front_motor.setPower(-.4);
+            }
+            else if(gamepad1.x){
+                //D-Pad Backward
+                R.left_back_motor.setPower(-.4);
+                R.left_front_motor.setPower(-.4);
+                R.right_back_motor.setPower(.4);
+                R.right_front_motor.setPower(.4);
+            }
             else{
                 // Mech Drive
                 R.left_front_motor.setPower(v1);

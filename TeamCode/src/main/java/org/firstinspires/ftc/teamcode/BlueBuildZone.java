@@ -38,18 +38,5 @@ public class BlueBuildZone extends LinearOpMode{
 
         R.raiseLifter(-300, .7);
         R.waitLinearSlide();
-
-        R.driveStraight(200, .7);
-        R.waitFor();
-
-        R.strafe("Right", 1500, .3);
-        R.waitFor();
-
-        R.raiseLifter(-300, .7);
-        R.waitLinearSlide();
-
-        R.strafe("Right", 1500, .3);
-        R.waitFor();
-
     }
 }

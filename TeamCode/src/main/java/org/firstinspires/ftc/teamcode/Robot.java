@@ -129,28 +129,49 @@ public class Robot {
     }
 
     public void driveStraight(int encoderTicks, double power) {
-//        this.setDriveMotorsMode(4); // STOP_AND_RESET_ENCODER
-        this.left_front_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        this.right_front_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        this.left_back_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        this.right_back_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
+        this.setDriveMotorsMode(4);
+        // Sets target Position
         this.left_front_motor.setTargetPosition(encoderTicks);
         this.right_front_motor.setTargetPosition(encoderTicks);
         this.left_back_motor.setTargetPosition(encoderTicks);
         this.right_back_motor.setTargetPosition(encoderTicks);
-        //Sets target Position
-//        this.setDriveMotorsMode(1); // RUN_TO_POSITION
-        this.left_front_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        this.right_front_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        this.left_back_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        this.right_back_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        // Starts Moving
+        this.setDriveMotorsMode(1); // RUN_TO_POSITION
         // Sets power
         this.left_front_motor.setPower(power);
         this.right_front_motor.setPower(power);
         this.left_back_motor.setPower(power);
         this.right_back_motor.setPower(power);
     }
+
+//    public void correctedStrafe(int encoderTicks, double power, String direction) {
+//        this.setDriveMotorsMode(4);
+//        this.setDriveMotorsMode(2);
+//        if(direction == "left") {
+//            this.left_front_motor.setPower();
+//            this.right_front_motor.setPower();
+//            this.left_back_motor.setPower();
+//            this.right_back_motor.setPower();
+//        }
+//        if(direction == "right") {
+//
+//        }
+//
+//
+//        // Sets target Position
+//        this.left_front_motor.setTargetPosition(encoderTicks);
+//        this.right_front_motor.setTargetPosition(encoderTicks);
+//        this.left_back_motor.setTargetPosition(encoderTicks);
+//        this.right_back_motor.setTargetPosition(encoderTicks);
+//        // Starts Moving
+//        this.setDriveMotorsMode(1); // RUN_TO_POSITION
+//        // Sets power
+//        this.left_front_motor.setPower(power);
+//        this.right_front_motor.setPower(power);
+//        this.left_back_motor.setPower(power);
+//        this.right_back_motor.setPower(power);
+//    }
+
 
     public void waitFor() {
         while(this.right_front_motor.isBusy() ){

@@ -2,10 +2,9 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
 
-@Autonomous(name = "RedBuildZone", group = "Autonomous")
-public class RedBuildZone extends LinearOpMode{
+@Autonomous(name = "RedBuildZoneSTRAFE", group = "Autonomous")
+public class RedBuildZoneSTRAFE extends LinearOpMode{
     public Robot R = new Robot();
 
     public void runOpMode(){
@@ -38,5 +37,17 @@ public class RedBuildZone extends LinearOpMode{
 
         R.raiseLifter(-300, .7);
         R.waitLinearSlide();
+
+        R.driveStraight(200, .7);
+        R.waitFor();
+
+        R.strafe("Right", 1500, .3);
+        R.waitFor();
+
+        R.raiseLifter(-300, .7);
+        R.waitLinearSlide();
+
+        R.strafe("Right", 1500, .3);
+        R.waitFor();
     }
 }

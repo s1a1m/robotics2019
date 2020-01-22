@@ -2,28 +2,19 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.vuforia.CameraDevice;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
-import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
-import org.firstinspires.ftc.robotcore.external.matrices.VectorF;
-import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.firstinspires.ftc.robotcore.external.navigation.AngleUnit.DEGREES;
-import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.XYZ;
-import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.YZX;
-import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.EXTRINSIC;
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
 
-@Autonomous(name = "RedSkystone", group = "Autonomous")
-public class RedPickUpZone extends LinearOpMode{
+@TeleOp(name = "RedSkystoneTest", group = "Linear Opmode")
+public class RedPickUpZone2 extends LinearOpMode{
     public Robot R = new Robot();
 
     public void runOpMode() {
@@ -61,25 +52,25 @@ public class RedPickUpZone extends LinearOpMode{
 //        List<VuforiaTrackable> allTrackables = new ArrayList<>();
 //        allTrackables.addAll(targetsSkyStone);
 
-        int block = 0;
-
-        waitForStart();
-
-        R.driveStraight(1800, .7);
-        R.waitFor();
-
-        R.turn("CCW", 1450, .7);
-        R.waitFor();
-
-        R.driveStraight(1110, .7);
-        R.waitFor();
-
-        targetsSkyStone.activate();
-        while (!isStopRequested()) {
-
-            //Looks for sky stone; prints if found
-            targetVisible = false;
-            sleep(1350);
+//        int block = 0;
+//
+//        waitForStart();
+//
+//        R.driveStraight(1800, .7);
+//        R.waitFor();
+//
+//        R.turn("CCW", 1450, .7);
+//        R.waitFor();
+//
+//        R.driveStraight(1110, .7);
+//        R.waitFor();
+//
+//        targetsSkyStone.activate();
+//        while (!isStopRequested()) {
+//
+//            //Looks for sky stone; prints if found
+//            targetVisible = false;
+//            sleep(1350);
 //            for (VuforiaTrackable trackable : allTrackables) {
 //                if (((VuforiaTrackableDefaultListener) trackable.getListener()).isVisible()) {
 //                    telemetry.addData("Visible Target", trackable.getName());
@@ -87,40 +78,48 @@ public class RedPickUpZone extends LinearOpMode{
 //                }
 //            }
 
-            if (((VuforiaTrackableDefaultListener) stoneTarget.getListener()).isVisible()) {
+
+//            if (((VuforiaTrackableDefaultListener) stoneTarget.getListener()).isVisible()) {
+//                telemetry.addData("Visible Target", stoneTarget.getName());
+//                telemetry.addData("Pose", ((VuforiaTrackableDefaultListener) stoneTarget.getListener()).getPosePhone());
+//                targetVisible = true;
+//            }
+
+            // telemetry.update();
+
+            while(true){
                 telemetry.addData("Visible Target", stoneTarget.getName());
-                telemetry.addData("Distance", ((VuforiaTrackableDefaultListener) stoneTarget.getListener()).getPosePhone().getTranslation().get(2));
-                targetVisible = true;
+                telemetry.addData("Pose", ((VuforiaTrackableDefaultListener) stoneTarget.getListener()).getPosePhone());
+                telemetry.update();
             }
 
-            telemetry.update();
             // Provide feedback as to where the robot is located (if we know).
-            if (targetVisible) {
-                targetsSkyStone.deactivate();
-                //Grabs Block
-                R.driveStraight(-200, .3);
-                R.waitFor();
-
-                R.strafe("Right", 1300, .25);
-                R.waitFor();
-
-                R.skystoneClaw.setPosition(0);
-                sleep(1000);
-
-                R.turn("CCW", 150, .7);
-                R.waitFor();
-
-                R.strafe("Left", 1600, .25);
-                R.waitFor();
-
-                R.turn("CW", 150, .7);
-                R.waitFor();
-
-                R.driveStraight(4500 + block, .8);
-                R.waitFor();
-
-                R.skystoneClaw.setPosition(.55);
-                sleep(1000);
+//            if (targetVisible) {
+//                targetsSkyStone.deactivate();
+//                //Grabs Block
+//                R.driveStraight(-200, .3);
+//                R.waitFor();
+//
+//                R.strafe("Right", 1300, .25);
+//                R.waitFor();
+//
+//                R.skystoneClaw.setPosition(0);
+//                sleep(1000);
+//
+//                R.turn("CCW", 150, .7);
+//                R.waitFor();
+//
+//                R.strafe("Left", 1600, .25);
+//                R.waitFor();
+//
+//                R.turn("CW", 150, .7);
+//                R.waitFor();
+//
+//                R.driveStraight(4500 + block, .8);
+//                R.waitFor();
+//
+//                R.skystoneClaw.setPosition(.55);
+//                sleep(1000);
 
 //                R.driveStraight(-(6630 + block), .7);
 //                R.waitFor();
@@ -151,15 +150,15 @@ public class RedPickUpZone extends LinearOpMode{
 //
 //                R.driveStraight(1000, .5);
 //                R.waitFor();
-
-
-                sleep(20000);
-            } else {
-                //Goes Backward and finds next block
-                block = block + 710;
-                R.driveStraight(-710, .5);
-                R.waitFor();
-            }
-        }
+//
+//
+//                sleep(20000);
+//            } else {
+//                //Goes Backward and finds next block
+//                block = block + 710;
+//                R.driveStraight(-710, .5);
+//                R.waitFor();
+//            }
+        //}
     }
 }
