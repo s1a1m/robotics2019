@@ -98,6 +98,12 @@ public class ConceptVuforiaNavigationWebcam extends LinearOpMode {
 
     public static final String TAG = "Vuforia Navigation Sample";
 
+
+
+
+
+
+
     OpenGLMatrix lastLocation = null;
 
     /**

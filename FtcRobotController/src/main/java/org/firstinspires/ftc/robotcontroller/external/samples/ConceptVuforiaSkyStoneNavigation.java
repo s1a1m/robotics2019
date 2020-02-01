@@ -22,6 +22,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.XYZ;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.YZX;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.EXTRINSIC;
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
+@Disabled
 
 @TeleOp(name="SKYSTONE Vuforia Nav", group ="Concept")
 public class ConceptVuforiaSkyStoneNavigation extends LinearOpMode {
@@ -33,7 +34,6 @@ public class ConceptVuforiaSkyStoneNavigation extends LinearOpMode {
     // Class Members
     private VuforiaLocalizer vuforia = null;
     private boolean targetVisible = false;
-
 
     @Override public void runOpMode() {
         /*

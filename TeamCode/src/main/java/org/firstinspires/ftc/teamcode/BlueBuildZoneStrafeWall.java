@@ -2,52 +2,56 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
-@Autonomous(name = "RedBuildZoneSTRAFE", group = "Autonomous")
-public class RedBuildZoneSTRAFE extends LinearOpMode{
+@Autonomous(name = "BlueBuildZoneStrafeWall", group = "Autonomous")
+public class BlueBuildZoneStrafeWall extends LinearOpMode{
     public Robot R = new Robot();
 
     public void runOpMode(){
         R.init(hardwareMap);
         waitForStart();
 
-        R.driveStraight(400, .7);
+        R.skystoneClaw.setPosition(.75);
+        sleep(500);
+
+        R.driveStraight(200, .3);
         R.waitFor();
 
         R.raiseLifter(-400, .7);
         R.waitLinearSlide();
 
-        R.turn("CW", 400, .7);
+        R.turn("CCW", 200, .3);
         R.waitFor();
 
-        R.driveStraight(2400, .7);
+        R.driveStraight(600, .3);
         R.waitFor();
 
-        R.turn("CCW", 440, .7);
+        R.turn("CW", 200, .3);
         R.waitFor();
 
-        R.driveStraight(500, .7);
+        R.driveStraight(500, .3);
         R.waitFor();
 
-        R.raiseLifter(400, .7);
+        R.raiseLifter(400, .3);
         R.waitLinearSlide();
 
-        R.driveStraight(-3300, .3);
+        R.driveStraight(-1200, .1);
         R.waitFor();
 
         R.raiseLifter(-300, .7);
         R.waitLinearSlide();
 
-        R.driveStraight(200, .7);
+        R.strafe("Right", 1000, .3);
         R.waitFor();
 
-        R.strafe("Right", 1500, .3);
-        R.waitFor();
-
-        R.raiseLifter(-300, .7);
+        R.raiseLifter(300, .7);
         R.waitLinearSlide();
 
-        R.strafe("Right", 1500, .3);
+        R.strafe("Right", 900, .3);
+        R.waitFor();
+
+        R.driveStraight(-200, .3);
         R.waitFor();
     }
 }

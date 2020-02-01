@@ -4,11 +4,11 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-@Autonomous(name = "RedBuildZone", group = "Autonomous")
-public class RedBuildZone extends LinearOpMode{
+@Autonomous(name = "RedBuildZoneStrafeWall", group = "Autonomous")
+public class RedBuildZoneStrafeWall extends LinearOpMode{
     public Robot R = new Robot();
 
-    public void runOpMode(){
+    public void runOpMode() {
         R.init(hardwareMap);
         waitForStart();
 
@@ -42,5 +42,16 @@ public class RedBuildZone extends LinearOpMode{
         R.raiseLifter(-300, .7);
         R.waitLinearSlide();
 
+        R.strafe("Left", 1000, .3);
+        R.waitFor();
+
+        R.raiseLifter(300, .7);
+        R.waitLinearSlide();
+
+        R.strafe("Left", 900, .3);
+        R.waitFor();
+
+        R.driveStraight(-200, .3);
+        R.waitFor();
     }
 }

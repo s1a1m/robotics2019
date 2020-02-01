@@ -16,6 +16,16 @@ public class TeleopMode extends LinearOpMode {
         waitForStart();
         while (opModeIsActive()) {
 
+            double powerButton = .3;
+
+            if(gamepad1.right_bumper){
+                powerButton = powerButton + .1;
+            }
+
+            if(gamepad1.left_bumper){
+                powerButton = powerButton - .1;
+            }
+
             final double v1 = -gamepad1.left_stick_y + gamepad1.right_stick_x + gamepad1.left_stick_x;
             final double v2 = -gamepad1.left_stick_y + gamepad1.right_stick_x - gamepad1.left_stick_x;
             final double v3 = -gamepad1.left_stick_y - gamepad1.right_stick_x - gamepad1.left_stick_x;
@@ -30,45 +40,59 @@ public class TeleopMode extends LinearOpMode {
             }
             else if(gamepad1.dpad_up){
                 //D-Pad Forward
-                R.left_back_motor.setPower(1);
-                R.left_front_motor.setPower(1);
-                R.right_back_motor.setPower(1);
-                R.right_front_motor.setPower(1);
+                R.left_back_motor.setPower(.3);
+                R.left_front_motor.setPower(.3);
+                R.right_back_motor.setPower(.3);
+                R.right_front_motor.setPower(.3);
             }
             else if(gamepad1.dpad_down){
                 //D-Pad Backward
-                R.left_back_motor.setPower(-1);
-                R.left_front_motor.setPower(-1);
-                R.right_back_motor.setPower(-1);
-                R.right_front_motor.setPower(-1);
+                R.left_back_motor.setPower(-.3);
+                R.left_front_motor.setPower(-.3);
+                R.right_back_motor.setPower(-.3);
+                R.right_front_motor.setPower(-.3);
             }
             else if(gamepad1.y){
                 //D-Pad Forward
-                R.left_back_motor.setPower(.4);
-                R.left_front_motor.setPower(.4);
-                R.right_back_motor.setPower(.4);
-                R.right_front_motor.setPower(.4);
+                R.left_back_motor.setPower(powerButton);
+                R.left_front_motor.setPower(powerButton);
+                R.right_back_motor.setPower(powerButton);
+                R.right_front_motor.setPower(powerButton);
             }
             else if(gamepad1.a){
                 //D-Pad Backward
-                R.left_back_motor.setPower(-.4);
-                R.left_front_motor.setPower(-.4);
-                R.right_back_motor.setPower(-.4);
-                R.right_front_motor.setPower(-.4);
+                R.left_back_motor.setPower(-powerButton);
+                R.left_front_motor.setPower(-powerButton);
+                R.right_back_motor.setPower(-powerButton);
+                R.right_front_motor.setPower(-powerButton);
             }
             else if(gamepad1.b){
                 //D-Pad Forward
-                R.left_back_motor.setPower(.4);
-                R.left_front_motor.setPower(.4);
-                R.right_back_motor.setPower(-.4);
-                R.right_front_motor.setPower(-.4);
+                R.left_back_motor.setPower(powerButton);
+                R.left_front_motor.setPower(powerButton);
+                R.right_back_motor.setPower(-powerButton);
+                R.right_front_motor.setPower(-powerButton);
             }
             else if(gamepad1.x){
                 //D-Pad Backward
-                R.left_back_motor.setPower(-.4);
-                R.left_front_motor.setPower(-.4);
-                R.right_back_motor.setPower(.4);
-                R.right_front_motor.setPower(.4);
+                R.left_back_motor.setPower(-powerButton);
+                R.left_front_motor.setPower(-powerButton);
+                R.right_back_motor.setPower(powerButton);
+                R.right_front_motor.setPower(powerButton);
+            }
+            else if(gamepad1.right_trigger > .01){
+                //D-Pad Forward
+                R.left_back_motor.setPower(gamepad1.right_trigger/2);
+                R.left_front_motor.setPower(gamepad1.right_trigger/2);
+                R.right_back_motor.setPower(-gamepad1.right_trigger/2);
+                R.right_front_motor.setPower(-gamepad1.right_trigger/2);
+            }
+            else if(gamepad1.left_trigger > .01){
+                //D-Pad Backward
+                R.left_back_motor.setPower(-gamepad1.left_trigger/2);
+                R.left_front_motor.setPower(-gamepad1.left_trigger/2);
+                R.right_back_motor.setPower(gamepad1.left_trigger/2);
+                R.right_front_motor.setPower(gamepad1.left_trigger/2);
             }
             else{
                 // Mech Drive
@@ -88,10 +112,10 @@ public class TeleopMode extends LinearOpMode {
                 R.claw2.setPosition(.5);
             }
             if(gamepad2.b){
-                R.skystoneClaw.setPosition(.55);
+                R.skystoneClaw.setPosition(.75);
             }
             if(gamepad2.x){
-                R.skystoneClaw.setPosition(0);
+                R.skystoneClaw.setPosition(.4);
             }
 
             //Linear Slide
@@ -103,6 +127,7 @@ public class TeleopMode extends LinearOpMode {
             telemetry.addData("Left Back: ", R.left_back_motor.getCurrentPosition());
             telemetry.addData("Right Back: ", R.right_back_motor.getCurrentPosition());
             telemetry.addData("Mode: ", R.left_front_motor.getMode());
+            telemetry.addData("Power Button", powerButton);
             telemetry.update();
 
         }

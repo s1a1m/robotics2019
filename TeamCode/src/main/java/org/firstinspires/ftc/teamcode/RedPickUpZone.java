@@ -65,6 +65,9 @@ public class RedPickUpZone extends LinearOpMode{
 
         waitForStart();
 
+        R.skystoneClaw.setPosition(1);
+        sleep(500);
+
         R.driveStraight(1800, .7);
         R.waitFor();
 
@@ -98,62 +101,78 @@ public class RedPickUpZone extends LinearOpMode{
             if (targetVisible) {
                 targetsSkyStone.deactivate();
                 //Grabs Block
-                R.driveStraight(-200, .3);
+                R.skystoneClaw.setPosition(1);
+                sleep(500);
+
+//                R.driveStraight(-500, .3);
+//                R.waitFor();
+
+                R.turn("CW", 1450, .7);
                 R.waitFor();
 
-                R.strafe("Right", 1300, .25);
+                R.driveStraight(1300, .7);
                 R.waitFor();
 
-                R.skystoneClaw.setPosition(0);
+                R.skystoneClaw.setPosition(.45);
                 sleep(1000);
 
-                R.turn("CCW", 150, .7);
+                R.driveStraight(-1200, .7);
                 R.waitFor();
 
-                R.strafe("Left", 1600, .25);
-                R.waitFor();
-
-                R.turn("CW", 150, .7);
+                R.turn("CCW", 1450, .7);
                 R.waitFor();
 
                 R.driveStraight(4500 + block, .8);
                 R.waitFor();
 
-                R.skystoneClaw.setPosition(.55);
+                R.skystoneClaw.setPosition(1);
                 sleep(1000);
 
-//                R.driveStraight(-(6630 + block), .7);
+                R.driveStraight(-(6630 + block), 1);
+                R.waitFor();
+
+                R.turn("CW", 1410, .7);
+                R.waitFor();
+
+                R.driveStraight(1300, .7);
+                R.waitFor();
+
+                R.skystoneClaw.setPosition(.45);
+                sleep(1000);
+
+                R.driveStraight(-1200, .7);
+                R.waitFor();
+
+                R.turn("CCW", 1450, .7);
+                R.waitFor();
+
+                R.driveStraight((6630 + block), 1);
+                R.waitFor();
+
+                R.skystoneClaw.setPosition(1);
+                sleep(1000);
+
+                R.driveStraight(-2000, .7);
+                R.waitFor();
+
+                R.turn(" CW", 1410, .7);
+                R.waitFor();
+
+                R.driveStraight(500, .5);
+                R.waitFor();
+
+                sleep(20000);
+//
+//                R.driveStraight(-2000, .7);
 //                R.waitFor();
-//
-//                R.strafe("Right", 1300, .25);
-//                R.waitFor();
-//
-//                R.skystoneClaw.setPosition(0);
-//                sleep(1000);
-//
-//                R.turn("CCW", 150, .7);
-//                R.waitFor();
-//
-//                R.strafe("Left", 1600, .25);
-//                R.waitFor();
-//
-//                R.turn("CW", 150, .7);
-//                R.waitFor();
-//
-//                R.driveStraight(6630 + block, .8);
-//                R.waitFor();
-//
-//                R.skystoneClaw.setPosition(.55);
-//                sleep(1000);
 //
 //                R.turn("CW", 1410, .7);
 //                R.waitFor();
 //
-//                R.driveStraight(1000, .5);
+//                R.driveStraight(500, .5);
 //                R.waitFor();
-
-
-                sleep(20000);
+//
+//                sleep(20000);
             } else {
                 //Goes Backward and finds next block
                 block = block + 710;

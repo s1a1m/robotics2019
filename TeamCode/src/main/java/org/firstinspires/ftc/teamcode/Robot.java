@@ -48,11 +48,17 @@ public class Robot {
         claw2 = HwMap.servo.get("claw2");
         skystoneClaw = HwMap.servo.get("skystoneClaw");
 
-        right_back_motor.setDirection(DcMotorSimple.Direction.REVERSE);
-        right_front_motor.setDirection(DcMotorSimple.Direction.REVERSE);
+        left_back_motor.setDirection(DcMotorSimple.Direction.REVERSE);
+        left_front_motor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         this.setDriveMotorsMode(4); // RESET
         this.setDriveMotorsMode(2); // RUN USING ENCODER
+
+        left_front_motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        left_back_motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        right_back_motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        right_front_motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
 
     }
 
